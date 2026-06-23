@@ -61,7 +61,7 @@ The selected features include temperature, rainfall, humidity, pressure, wind sp
 The target variable is:
 
 ```text
-HeavyRainTomorrow
+Rain10Tomorrow
 ```
 
 Heavy rainfall is defined using a top-percentile rainfall threshold. If tomorrow’s rainfall exceeds the threshold, the sample is labeled as a heavy-rain event.
