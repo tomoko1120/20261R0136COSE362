@@ -4,9 +4,11 @@
 
 This repository contains the final project code for **COSE362 Machine Learning, Spring 2026** at Korea University.
 
-Our project focuses on **AI + Climate Resilience**, specifically improving heavy rainfall prediction under rare-event class imbalance. Heavy rainfall events occur much less frequently than normal weather days, so standard machine learning classifiers may achieve high overall accuracy while still missing dangerous heavy-rain cases.
+Our project focuses on **AI + Climate Resilience**, specifically heavy rainfall prediction under rare-event class imbalance. Heavy rainfall events occur much less frequently than normal weather days, so standard machine learning models may achieve reasonable overall performance while still missing important heavy-rain cases.
 
-To address this problem, we use a **Variational Autoencoder (VAE)** as a generative data augmentation framework. The VAE is trained on heavy-rain samples and generates synthetic minority-class samples. These generated samples are added to the training data, and we compare baseline classifiers with VAE-augmented classifiers.
+To address this problem, we use a **Variational Autoencoder (VAE)** as a generative data augmentation framework. The VAE is trained on heavy-rain samples and generates synthetic minority-class weather data. These generated samples are added to the training data, and we compare baseline classifiers with VAE-augmented classifiers.
+
+---
 
 ## Team Members
 
@@ -17,6 +19,8 @@ To address this problem, we use a **Variational Autoencoder (VAE)** as a generat
 | Prasai Sashwat       | 2025952744 |
 | Alirshad             | 2024320013 |
 | Ishraq Ahmed         | 2022320175 |
+
+---
 
 ## Main Submission Notebook
 
@@ -30,12 +34,14 @@ This notebook contains the complete project pipeline:
 
 1. Dataset loading
 2. Feature selection and preprocessing
-3. HeavyRainTomorrow target label creation
+3. `Rain10Tomorrow` target label creation
 4. Train/test split and standardization
 5. VAE training on heavy-rain samples
 6. Synthetic heavy-rain sample generation
 7. Logistic Regression and Random Forest classification
 8. Evaluation using recall, precision, and F1-score
+
+---
 
 ## Repository Structure
 
@@ -43,15 +49,13 @@ This notebook contains the complete project pipeline:
 20261R0136COSE362/
 │
 ├── README.md
+├── .gitignore
 ├── dataset.csv
 ├── implementation.ipynb
-├── Data_collection_and_preprocessing.ipynb
-│
-└── experiments/
-    ├── README.md
-    ├── experiment_(with_GMM).ipynb
-    └── vae_fc3_with_PReLU.ipynb
+└── Data_collection_and_preprocessing.ipynb
 ```
+
+---
 
 ## Dataset
 
@@ -64,7 +68,9 @@ The target variable is:
 Rain10Tomorrow
 ```
 
-Heavy rainfall is defined using a top-percentile rainfall threshold. If tomorrow’s rainfall exceeds the threshold, the sample is labeled as a heavy-rain event.
+`Rain10Tomorrow` is a binary target variable for heavy rainfall prediction. If tomorrow’s rainfall belongs to the top 10% rainfall range, the sample is labeled as a heavy-rain event. Otherwise, it is labeled as a non-heavy-rain event.
+
+---
 
 ## Method Summary
 
@@ -73,7 +79,7 @@ The project follows this pipeline:
 ```text
 Weather Data
 → Preprocessing
-→ HeavyRainTomorrow Label Creation
+→ Rain10Tomorrow Label Creation
 → VAE Training on Heavy-Rain Samples
 → Synthetic Heavy-Rain Data Generation
 → Augmented Training Dataset
@@ -88,8 +94,10 @@ Two classifiers are used for comparison:
 
 Each classifier is tested in two settings:
 
-1. Baseline: trained only on the original data
-2. VAE-Augmented: trained on original data plus VAE-generated heavy-rain samples
+1. **Baseline:** trained only on the original data
+2. **VAE-Augmented:** trained on original data plus VAE-generated heavy-rain samples
+
+---
 
 ## Evaluation Metrics
 
@@ -99,7 +107,9 @@ Because heavy rainfall is a rare-event prediction problem, standard accuracy is 
 * Precision
 * F1-score
 
-Recall is especially important because missing an actual heavy-rainfall event can be dangerous in real disaster-warning scenarios.
+Recall is especially important because missing an actual heavy-rainfall event can be dangerous in disaster-warning scenarios.
+
+---
 
 ## How to Run
 
@@ -108,9 +118,13 @@ Recall is especially important because missing an actual heavy-rainfall event ca
 3. Run all cells from top to bottom.
 4. The notebook will train the baseline and VAE-augmented models and display the evaluation results.
 
-## Additional Experiments
+---
 
-The `experiments/` folder contains supporting experiment notebooks, including activation-function testing, PReLU-based VAE experiments, and GMM-related experiments. These files are included for reference and additional analysis, but the official final pipeline is provided in `implementation.ipynb`.
+## Additional Notebook
+
+`Data_collection_and_preprocessing.ipynb` contains the dataset preparation and preprocessing process. It is included for reference, while the official final implementation is provided in `implementation.ipynb`.
+
+---
 
 ## Conclusion
 
